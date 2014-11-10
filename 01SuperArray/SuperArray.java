@@ -22,26 +22,13 @@ public class SuperArray{
 		data = data2;
 	}
 
-	private void increaseCap(){
-		resize(data.length + 1);
-	}
-	private void decreaseCap(){
-		resize(data.length - 1);
-	}	
 	public void clear(){
 		for (int i = 0; i < data.length; i++){
 			data[i] = null;
 		}
 		elements = 0;
 	}
-	public String toString(){
-		String str = "[ ";
-		for (int i = 0; i < data.length; i++){
-			str += data[i] + " ";
-		}
-		str += "]";
-		return str;
-	}
+
 
 	public void add(Object o){
 		add(elements, o);
@@ -51,17 +38,18 @@ public class SuperArray{
 			System.out.println("Out of Bounds.");
 		}
 		if(elements == data.length){
-			increaseCap();
+			resize(data.length + 1);
 		}
-		for(int i = elements; i > index; i--){
-			data[i] = data[i - 1];
+		for(int i = elements; i > index;i--){
+			data[i - 1] = data[i];
 		}
 		elements++;
 		data[index] = o;
+		;
 	}
 
 	public Object get(int index){
-		if (index < 0  || index >= elements){
+		if (index >= data.length || index < 0){
 			System.out.println("Out of Bounds.");
 			return null;
 		}
@@ -80,7 +68,6 @@ public class SuperArray{
 			return ret;
 		}
 	}
-
 	public Object remove(int index){
 		if(index > elements || index < 0){
 			System.out.println("Out of Bounds.");
@@ -89,8 +76,8 @@ public class SuperArray{
 		else{
 			Object ret = data[index];
 			int lastIndex = elements - 1;
-			if(lastIndex < data.length - 1){
-				decreaseCap();
+			if(lastIndex == data.length){
+				resize(data.length - 1);
 			}
 			for(int i = index; i < lastIndex; i++){
 				data[i] = data[i + 1];
@@ -100,25 +87,32 @@ public class SuperArray{
 			return ret;
 		}
 	}
+	public String toString(){
+		String str = "[ ";
+		for (int i = 0; i < data.length; i++){
+			str += data[i] + " ";
+		}
+		str += "]";
+		return str;
+	}	
 	public static void main(String[]args){
 		SuperArray a = new SuperArray();
 		System.out.println(a.toString());
 		System.out.println(a.size());
 		a.add(5);
+		a.resize(20);
+		System.out.println(a.toString());
 		a.add("w");
+		a.add(5);
+		a.add(2,"test");
+		a.add(5);
+		a.add(8,"onetw");
+		a.add(10,7845321);
+		a.add(5);
+		a.add("yay");
 		System.out.println(a.toString());
-		System.out.println(a.size());
-		a.resize(15);
-		System.out.println(a.toString());
-		a.clear();
-		System.out.println(a.toString());
-		a.add(7);
-		a.add("b");
-		a.add(50);
-		a.add("aw");
-		System.out.println(a.toString());
-		System.out.println(a.get(3));
-		a.set(2,"swag");
+		a.remove(9);
+		a.remove(5);
 		System.out.println(a.toString());
 	}
 }
