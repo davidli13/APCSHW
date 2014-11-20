@@ -11,11 +11,11 @@ public class WordGrid{
         clear();
     }
 
-    /**Set all values in the WordGrid to spaces 'X'*/
+    /**Set all values in the WordGrid to spaces ' '*/
     private void clear(){
         for(int r = 0; r < data.length; r++){
             for (int c = 0; c < data[r].length; c++){
-                data[r][c] = 'X';
+                data[r][c] = ' ';
             }  
         }
     }
