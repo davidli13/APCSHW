@@ -4,7 +4,7 @@ public class WordGrid{
     private char[][]data;
     private long seed;
     private ArrayList<String> words = new ArrayList<String>();
-    Random r;
+    Random r = new Random();
 
     /**Initialize the grid to the size specified and fill all of the positions
     *with spaces.
@@ -92,6 +92,20 @@ public class WordGrid{
         }
         words.add(word);
         return true;
+    }
+
+    public void loadWordsFromFile(String fileName, boolean fillRandomLetters) throws FileNotFoundException{
+        File text = new File(fileName);
+        Scanner scan = new Scanner(text);
+        while (scan.hasNextLine()){
+            String line = scan.nextLine();
+            words.add(line);
+        }
+    }
+
+
+    public void setSeed(long seed){
+        r.setSeed(seed);
     }
     
     public static void main(String[]args){
