@@ -1,5 +1,10 @@
+import java.io.*;
+import java.util.*;
 public class WordGrid{
     private char[][]data;
+    private long seed;
+    private ArrayList<String> words = new ArrayList<String>();
+    Random r;
 
     /**Initialize the grid to the size specified and fill all of the positions
     *with spaces.
@@ -63,13 +68,29 @@ public class WordGrid{
     }
     
     public boolean addWord(String word,int row, int col, int changeRow, int changeCol){
-        int r = 0;
-        int c = 0;
+        int r = row;
+        int c = col;
+        try{
+            for (int i = 0; i < word.length(); i++){
+                if (data[r][c] != ' ' && data[r][c] != word.charAt(i)){
+                    return false;
+                }   
+                r += changeRow;
+                c += changeCol;
+                System.out.println(r);
+            }
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            return false;
+        }
+        r = row;
+        c = col;
         for (int i = 0; i < word.length(); i++){
-            data[row+r][col+c] = word.charAt(i);
+            data[r][c] = word.charAt(i);
             r += changeRow;
             c += changeCol;
         }
+        words.add(word);
         return true;
     }
     
@@ -77,7 +98,9 @@ public class WordGrid{
         WordGrid g = new WordGrid();
         g.WordGrid(9,9);
         System.out.println(g.toString());
-        g.addWord("test",8,8,-1,-1);
+        g.addWord("test",8,8,1,1);
+        System.out.println(g.toString());
+        g.addWord("cat",8,6,0,1);
         System.out.println(g.toString());
     }
 }
