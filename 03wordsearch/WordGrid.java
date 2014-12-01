@@ -11,7 +11,7 @@ public class WordGrid{
     *@param row is the starting height of the WordGrid
     *@param col is the starting width of the WordGrid
     */
-    public void WordGrid(int rows,int cols){
+    public WordGrid(int rows,int cols){
         data = new char[rows][cols];
         clear();
     }
@@ -72,12 +72,11 @@ public class WordGrid{
         int c = col;
         try{
             for (int i = 0; i < word.length(); i++){
-                if (data[r][c] != ' ' && data[r][c] != word.charAt(i)){
+                if (data[r][c] != '-' && data[r][c] != word.charAt(i)){
                     return false;
                 }   
                 r += changeRow;
                 c += changeCol;
-                System.out.println(r);
             }
         }
         catch(ArrayIndexOutOfBoundsException e){
@@ -109,11 +108,10 @@ public class WordGrid{
     }
     
     public static void main(String[]args){
-        WordGrid g = new WordGrid();
-        g.WordGrid(9,9);
+        WordGrid g = new WordGrid(9,9);
         System.out.println(g.toString());
-        g.addWord("test",8,8,1,1);
-        System.out.println(g.toString());
+        g.addWord("tesd",5,5,0,1);
+        g.addWord("vegetablearegay",4,4,0,1);
         g.addWord("cat",8,6,0,1);
         System.out.println(g.toString());
     }
