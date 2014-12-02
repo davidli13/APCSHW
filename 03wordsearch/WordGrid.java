@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.*;
 public class WordGrid{
     private char[][]data;
+    private int row;
+    private int col;
     private long seed;
     private ArrayList<String> words = new ArrayList<String>();
     Random r = new Random();
@@ -11,8 +13,12 @@ public class WordGrid{
     *@param row is the starting height of the WordGrid
     *@param col is the starting width of the WordGrid
     */
-    public WordGrid(int rows,int cols){
-        data = new char[rows][cols];
+    public WordGrid(int row, int col, long seed){
+        data = new char[row][col];
+        this.row = row;
+        this.col = col;
+        this.seed = seed;
+        r = new Random(seed);
         clear();
     }
 
@@ -93,26 +99,58 @@ public class WordGrid{
         return true;
     }
 
+    public void fillRandomLetters(){
+        for (int row = 0; row < data.length; row++){
+            for (int col = 0; col < data[row].length; col++){
+                if (data[row][col] == '-'){
+                    data[row][col] = (char)('A' + r.nextInt(26));
+                }
+            }
+        }
+    }
     public void loadWordsFromFile(String fileName, boolean fillRandomLetters) throws FileNotFoundException{
         File text = new File(fileName);
         Scanner scan = new Scanner(text);
+        System.out.println(scan);
         while (scan.hasNextLine()){
             String line = scan.nextLine();
             words.add(line);
         }
     }
 
+    public String wordsInPuzzle(){
+        String w = "";
+        try{
+            int counter = 0;
+            for (int i = 0; i < words.size(); i++){
+                if (counter < 4){
+                    w += words.get(i) + " ";
+                    counter++;
+                }
+                else{
+                    w += "\n" + words.get(i) + " ";
+                    counter = 0;
+                }
+            }
+        }
+        catch (IndexOutOfBoundsException e){
+        }
+        return w;
+    }
 
     public void setSeed(long seed){
         r.setSeed(seed);
     }
     
     public static void main(String[]args){
-        WordGrid g = new WordGrid(9,9);
+        WordGrid g = new WordGrid(15,15,1);
+        g.addWord("TEST",5,5,0,1);
+        g.addWord("TEST",5,5,1,1);
+        g.addWord("DOG",1,1,0,1);
+        g.addWord("TEST",2,2,1,1);
+        g.addWord("CAT",8,6,0,1);
+        g.fillRandomLetters();
         System.out.println(g.toString());
-        g.addWord("tesd",5,5,0,1);
-        g.addWord("vegetablearegay",4,4,0,1);
-        g.addWord("cat",8,6,0,1);
-        System.out.println(g.toString());
+        System.out.println(g.wordsInPuzzle());
     }
 }
