@@ -108,13 +108,19 @@ public class WordGrid{
             }
         }
     }
-    public void loadWordsFromFile(String fileName, boolean fillRandomLetters) throws FileNotFoundException{
-        File text = new File(fileName);
-        Scanner scan = new Scanner(text);
-        System.out.println(scan);
-        while (scan.hasNextLine()){
-            String line = scan.nextLine();
-            words.add(line);
+    public void loadWordsFromFile(String filename, boolean fillRandomLetters){
+        try{
+            ArrayList<String> wordBank = new ArrayList<String>();
+            File f = new File(filename);
+            Scanner s = new Scanner(f);
+            while(s.hasNextLine()){
+                wordBank.add(s.nextLine());
+            }   
+            if(fillRandomLetters){
+                fillRandomLetters();
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("File does not exist");
         }
     }
 
@@ -126,8 +132,7 @@ public class WordGrid{
                 if (counter < 4){
                     w += words.get(i) + " ";
                     counter++;
-                }
-                else{
+                }else{
                     w += "\n" + words.get(i) + " ";
                     counter = 0;
                 }
@@ -152,5 +157,6 @@ public class WordGrid{
         g.fillRandomLetters();
         System.out.println(g.toString());
         System.out.println(g.wordsInPuzzle());
+        g.loadWordsFromFile("WordList.txt",true);
     }
 }
