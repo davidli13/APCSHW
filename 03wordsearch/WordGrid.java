@@ -74,6 +74,7 @@ public class WordGrid{
     }
     
     public boolean addWord(String word,int row, int col, int changeRow, int changeCol){
+        System.out.println("sucess");
         int r = row;
         int c = col;
         try{
@@ -99,6 +100,17 @@ public class WordGrid{
         return true;
     }
 
+    public void addWords(ArrayList<String> list){
+        int count = 0;
+        System.out.println(row);
+        for(int i = 0; i < list.size(); i++){
+            System.out.println(list.get(i));
+            if (addWord(list.get(i),r.nextInt(row),r.nextInt(col),1,1)){
+                
+            }
+        }
+    }
+
     public void fillRandomLetters(){
         for (int row = 0; row < data.length; row++){
             for (int col = 0; col < data[row].length; col++){
@@ -115,11 +127,14 @@ public class WordGrid{
             Scanner s = new Scanner(f);
             while(s.hasNextLine()){
                 wordBank.add(s.nextLine());
-            }   
+            }
+            System.out.println(wordBank.size());
+            addWords(wordBank);
             if(fillRandomLetters){
                 fillRandomLetters();
             }
-        }catch(FileNotFoundException e){
+        }
+        catch(FileNotFoundException e){
             System.out.println("File does not exist");
         }
     }
@@ -148,15 +163,10 @@ public class WordGrid{
     }
     
     public static void main(String[]args){
-        WordGrid g = new WordGrid(15,15,1);
-        g.addWord("TEST",5,5,0,1);
-        g.addWord("TEST",5,5,1,1);
-        g.addWord("DOG",1,1,0,1);
-        g.addWord("TEST",2,2,1,1);
-        g.addWord("CAT",8,6,0,1);
-        g.fillRandomLetters();
-        System.out.println(g.toString());
-        System.out.println(g.wordsInPuzzle());
-        g.loadWordsFromFile("WordList.txt",true);
+        WordGrid g = new WordGrid(25,25,1);
+        g.loadWordsFromFile("WordList.txt",false);
+        //System.out.println(g.toString());
+        //System.out.println(g.wordsInPuzzle());
+        System.out.println(g);
     }
 }
