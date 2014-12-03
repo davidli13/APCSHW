@@ -131,7 +131,7 @@ public class WordGrid{
             }
         }
     }
-    public void loadWordsFromFile(String filename, boolean fillRandomLetters){
+    public void loadWordsFromFile(String filename, int fillRandomLetters){
         try{
             ArrayList<String> wordBank = new ArrayList<String>();
             File f = new File(filename);
@@ -140,9 +140,11 @@ public class WordGrid{
                 wordBank.add(s.nextLine());
             }
             addWords(wordBank);
-            if(fillRandomLetters){
+            if(fillRandomLetters != 1){
                 fillRandomLetters();
             }
+            System.out.println(toString());
+            System.out.println( "Find these words:\n"+ wordsInPuzzle());
         }
         catch(FileNotFoundException e){
             System.out.println("File does not exist");
@@ -174,9 +176,8 @@ public class WordGrid{
     
     public static void main(String[]args){
         WordGrid g = new WordGrid();
-        System.out.println(g.wordsInPuzzle());
-        g.loadWordsFromFile("WordList.txt",true);
-        System.out.println(g.toString());
-        System.out.println(g.wordsInPuzzle());
+        g.loadWordsFromFile("WordList.txt",0);
+        //System.out.println(g.toString());
+        //System.out.println(g.wordsInPuzzle());
     }
 }
