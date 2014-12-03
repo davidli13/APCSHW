@@ -32,11 +32,28 @@ public class OrderedSuperArray extends SuperArray{
     public void add(String o){
 	add(elements, o);
     }
-    public void add(int index, String o){
+    public void add(String o){
+        int index = size();
+        while( index >0 && get(index-1).compareTo(o) > 0 ){
+            index--;
+        }
+        super.add(index, o);
     }
 
     public void insertionSort(){
+	x
     }
+
+    public void badInsertionSort(){
+        OrderedSuperArray c = new OrderedSuperArray();
+        while(this.size() > 0){ 
+            c.add(this.remove(0));
+        }
+        while(c.size() > 0){
+            this.add(c.remove(0));
+        }
+    }
+
     public String get(int index){
 	if (index >= data.length || index < 0){
 	    System.out.println("Out of Bounds.");
@@ -88,19 +105,6 @@ public class OrderedSuperArray extends SuperArray{
 	OrderedSuperArray a = new OrderedSuperArray();
 	System.out.println(a.toString());
 	System.out.println(a.size());
-	a.add(5);
-	a.resize(20);
-	System.out.println(a.toString());
-	a.add("w");
-	a.add(5);
-	a.add(2,"test");
-	a.add(5);
-	a.add(8,"onetw");
-	a.add(5);
-	a.add("yay");
-	System.out.println(a.toString());
-	a.remove(9);
-	a.remove(5);
-	System.out.println(a.toString());
+	System.out.println(a);
     }
 }
