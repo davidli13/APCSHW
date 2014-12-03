@@ -20,7 +20,7 @@ public class Driver{
 
         System.out.println("\nIncorrect Syntax, default values were used");
         System.out.println("Correct Syntax:");
-        System.out.println("java WordGrid <rows> <cols> <filename> <filled> [seed]\n");
+        System.out.println("java WordGrid <rows> <cols> <filled> [seed]\n");
         WordGrid w = new WordGrid();
         w.loadWordsFromFile("WordList.txt",0);
 
