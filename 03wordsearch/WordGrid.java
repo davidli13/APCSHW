@@ -22,6 +22,14 @@ public class WordGrid{
         clear();
     }
 
+    public WordGrid(int row, int col){
+        this(row,col,(long) 0);
+    }
+
+    public WordGrid(){
+        this(15,15,(long) 0);
+    }
+
     /**Set all values in the WordGrid to spaces ' '*/
     private void clear(){
         for(int r = 0; r < data.length; r++){
@@ -74,7 +82,6 @@ public class WordGrid{
     }
     
     public boolean addWord(String word,int row, int col, int changeRow, int changeCol){
-        System.out.println("sucess");
         int r = row;
         int c = col;
         try{
@@ -100,15 +107,19 @@ public class WordGrid{
         return true;
     }
 
-    public void addWords(ArrayList<String> list){
+    public boolean addWords(ArrayList<String> list){
         int count = 0;
-        System.out.println(row);
         for(int i = 0; i < list.size(); i++){
-            System.out.println(list.get(i));
-            if (addWord(list.get(i),r.nextInt(row),r.nextInt(col),1,1)){
-                
+            int dx = r.nextInt(3) - 1;
+            int dy = r.nextInt(3) - 1;
+            if (count >= row * col / 10){
+                return true;
             }
+            if (addWord(list.get(i),r.nextInt(row),r.nextInt(col),dx,dy)){
+                count++;
+            }            
         }
+        return false;
     }
 
     public void fillRandomLetters(){
@@ -128,7 +139,6 @@ public class WordGrid{
             while(s.hasNextLine()){
                 wordBank.add(s.nextLine());
             }
-            System.out.println(wordBank.size());
             addWords(wordBank);
             if(fillRandomLetters){
                 fillRandomLetters();
@@ -163,10 +173,10 @@ public class WordGrid{
     }
     
     public static void main(String[]args){
-        WordGrid g = new WordGrid(25,25,1);
-        g.loadWordsFromFile("WordList.txt",false);
-        //System.out.println(g.toString());
-        //System.out.println(g.wordsInPuzzle());
-        System.out.println(g);
+        WordGrid g = new WordGrid();
+        System.out.println(g.wordsInPuzzle());
+        g.loadWordsFromFile("WordList.txt",true);
+        System.out.println(g.toString());
+        System.out.println(g.wordsInPuzzle());
     }
 }
