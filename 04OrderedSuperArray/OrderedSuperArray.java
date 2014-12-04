@@ -41,8 +41,11 @@ public class OrderedSuperArray extends SuperArray{
     }
 
     public void insertionSort(){
-	x
+	
     }
+
+	public int find(String target){
+}
 
     public void badInsertionSort(){
         OrderedSuperArray c = new OrderedSuperArray();
